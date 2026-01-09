@@ -72,3 +72,47 @@ The SX6036 maxes out at FDR (56 Gbps per port using 4x lanes), so values above 1
 ---
 
 To get Ethernet working you'll care about **51** (L2), **53** (Ethernet mode), and **58** (L3 if you want routing). You will also care about **55** if you want to enable VPI mode (Ethernet/Infiniband at the same time).
+
+To install basically all features run this:
+```
+mellanox-sx6036 [standalone: master] > enable
+mellanox-sx6036 [standalone: master] # configure terminal 
+mellanox-sx6036 [standalone: master] (config) # license install LK2-EFM_SX-5K11-5L11-5M11-5N21-45P2-145T-115U-1188-A0B4-TJ0Q-0XY
+mellanox-sx6036 [standalone: master] (config) # exit
+mellanox-sx6036 [standalone: master] # show licenses
+```
+
+#Noise and Power
+My SX6036 idles at 35w with one PSU plugged in and fans spun down to roughly 4300 rpm (17% speed). By default the switch idles at 50-55w and the fans run at nearly 10000 rpm.
+
+From an elevated SSH session you can see and control the fans
+```
+mellanox-sx6036 [standalone: master] > enable
+mellanox-sx6036 [standalone: master] # show fan
+=====================================================
+Module          Device          Fan  Speed     Status
+                                     (RPM)
+=====================================================
+FAN             FAN             F1   9510.00   OK
+FAN             FAN             F2   9090.00   OK
+FAN             FAN             F3   9510.00   OK
+FAN             FAN             F4   9090.00   OK
+PS1             FAN             -    -         NOT PRESENT
+PS2             FAN             F1   9510.00   OK
+mellanox-sx6036 [standalone: master] # fae mlxi2c set_fan /PS1/FAN 1 17
+mellanox-sx6036 [standalone: master] # fae mlxi2c set_fan /PS2/FAN 1 17
+mellanox-sx6036 [standalone: master] # fae mlxi2c set_fan /FAN/FAN 1 17
+mellanox-sx6036 [standalone: master] # show fan
+=====================================================
+Module          Device          Fan  Speed     Status
+                                     (RPM)
+=====================================================
+FAN             FAN             F1   4290.00   OK
+FAN             FAN             F2   4290.00   OK
+FAN             FAN             F3   4320.00   OK
+FAN             FAN             F4   4290.00   OK
+PS1             FAN             -    -         NOT PRESENT
+PS2             FAN             F1   4320.00   OK
+```
+
+I'll update this when I figure out how to make the fan speed persistent.
