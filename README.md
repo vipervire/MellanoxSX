@@ -68,7 +68,7 @@ The SX6036 maxes out at FDR (56 Gbps per port using 4x lanes), so values above 1
 **Note:** These are *limit* options—they restrict maximum speed. For a "no restrictions" license, you'd either:
 - Omit these options entirely, or
 - Set them to the maximum (16 for IB, 56 for Eth)
-- Since MLNX-OS 3.4.3002, 56GbE speed is enabled by default
+- [Since MLNX-OS 3.4.3002, 56GbE speed is enabled by default](https://enterprise-support.nvidia.com/s/article/MLNX2-117-1804kn)
 
 ---
 
@@ -84,7 +84,7 @@ mellanox-sx6036 [standalone: master] # show licenses
 ```
 
 ## Noise and Power
-My SX6036 idles at 35w with one PSU plugged in and fans spun down to roughly 4300 rpm (17% speed). By default the switch idles at 50-55w and the fans run at nearly 10000 rpm.
+My SX6036 idles at 35w with one PSU plugged in and fans spun down to roughly 4300 rpm (17% speed - any lower and they'll start to rpm cycle). By default the switch idles at 50-55w and the fans run at nearly 10000 rpm.
 
 From an elevated SSH session you can see and control the fans
 ```
