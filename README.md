@@ -46,7 +46,7 @@ Then from there you can access the genlicense tool:
 | **58** | `efm_sx_l3_enabled` | Enables Layer 3 routing features—static routes, OSPF, BGP, etc. Boolean. |
 | **59** | `efm_sx_fcf_enabled` | Enables Fibre Channel Forwarder mode for FCoE (Fibre Channel over Ethernet) bridging. Boolean. |
 
-# Option 56 — InfiniBand Speed Limit (`efm_sx_ib_speed_sw_limit`)
+### Option 56 — InfiniBand Speed Limit (`efm_sx_ib_speed_sw_limit`)
 | Value | Speed |
 |-------|-------|
 | 1 | SDR (2.5 Gbps) |
@@ -57,7 +57,7 @@ Then from there you can access the genlicense tool:
 
 The SX6036 maxes out at FDR (56 Gbps per port using 4x lanes), so values above 16 wouldn't apply.
 
-# Option 57 — Ethernet Speed Limit (`efm_sx_eth_speed_sw_limit`)
+### Option 57 — Ethernet Speed Limit (`efm_sx_eth_speed_sw_limit`)
 | Value | Speed |
 |-------|-------|
 | 1 | 1 GbE |
