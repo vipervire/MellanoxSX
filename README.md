@@ -1,5 +1,6 @@
 Here lies info on enabling features on your new (and very old) Mellanox SX6036 switch.
 
+## Shell Access
 To get shell access you need to install a license to enable restricted commands. License install can also be done through the GUI. To SSH to the switch you may need to enable legacy crypto algorithms if using modern Linux. The default login is admin:admin
 
 To install from SSH, use these commands and verify the output:
@@ -29,7 +30,7 @@ Then from there you can access the genlicense tool:
 [admin@mellanox-sx6036 bin]# ./genlicense 2 EFM_SX <secret> -o <option ID> <option value>
 ```
 
-Here's what each informational option ID controls:
+## Here's what each informational option ID controls:
 
 | ID | Name | Meaning |
 |----|------|---------|
@@ -45,7 +46,7 @@ Here's what each informational option ID controls:
 | **58** | `efm_sx_l3_enabled` | Enables Layer 3 routing features—static routes, OSPF, BGP, etc. Boolean. |
 | **59** | `efm_sx_fcf_enabled` | Enables Fibre Channel Forwarder mode for FCoE (Fibre Channel over Ethernet) bridging. Boolean. |
 
-## Option 56 — InfiniBand Speed Limit (`efm_sx_ib_speed_sw_limit`)
+# Option 56 — InfiniBand Speed Limit (`efm_sx_ib_speed_sw_limit`)
 | Value | Speed |
 |-------|-------|
 | 1 | SDR (2.5 Gbps) |
@@ -56,7 +57,7 @@ Here's what each informational option ID controls:
 
 The SX6036 maxes out at FDR (56 Gbps per port using 4x lanes), so values above 16 wouldn't apply.
 
-## Option 57 — Ethernet Speed Limit (`efm_sx_eth_speed_sw_limit`)
+# Option 57 — Ethernet Speed Limit (`efm_sx_eth_speed_sw_limit`)
 | Value | Speed |
 |-------|-------|
 | 1 | 1 GbE |
@@ -82,7 +83,7 @@ mellanox-sx6036 [standalone: master] (config) # exit
 mellanox-sx6036 [standalone: master] # show licenses
 ```
 
-#Noise and Power
+## Noise and Power
 My SX6036 idles at 35w with one PSU plugged in and fans spun down to roughly 4300 rpm (17% speed). By default the switch idles at 50-55w and the fans run at nearly 10000 rpm.
 
 From an elevated SSH session you can see and control the fans
