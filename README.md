@@ -45,6 +45,30 @@ Here's what each informational option ID controls:
 | **58** | `efm_sx_l3_enabled` | Enables Layer 3 routing features—static routes, OSPF, BGP, etc. Boolean. |
 | **59** | `efm_sx_fcf_enabled` | Enables Fibre Channel Forwarder mode for FCoE (Fibre Channel over Ethernet) bridging. Boolean. |
 
+## Option 56 — InfiniBand Speed Limit (`efm_sx_ib_speed_sw_limit`)
+| Value | Speed |
+|-------|-------|
+| 1 | SDR (2.5 Gbps) |
+| 2 | DDR (5 Gbps) |
+| 4 | QDR (10 Gbps) |
+| 8 | FDR10 (10.3 Gbps) |
+| 16 | FDR (14 Gbps) |
+
+The SX6036 maxes out at FDR (56 Gbps per port using 4x lanes), so values above 16 wouldn't apply.
+
+## Option 57 — Ethernet Speed Limit (`efm_sx_eth_speed_sw_limit`)
+| Value | Speed |
+|-------|-------|
+| 1 | 1 GbE |
+| 10 | 10 GbE |
+| 40 | 40 GbE |
+| 56 | 56 GbE |
+
+**Note:** These are *limit* options—they restrict maximum speed. For a "no restrictions" license, you'd either:
+- Omit these options entirely, or
+- Set them to the maximum (16 for IB, 56 for Eth)
+- Since MLNX-OS 3.4.3002, 56GbE speed is enabled by default
+
 ---
 
 To get Ethernet working you'll care about **51** (L2), **53** (Ethernet mode), and **58** (L3 if you want routing). You will also care about **55** if you want to enable VPI mode (Ethernet/Infiniband at the same time).
