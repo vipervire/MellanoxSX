@@ -1,7 +1,13 @@
 Here lies info on enabling features on your new (and very old) Mellanox SX6036 switch.
 
 # Shell Access
-To get shell access you need to install a license to enable restricted commands. License install can also be done through the GUI. To SSH to the switch you may need to enable legacy crypto algorithms if using modern Linux. The default login is admin:admin
+To SSH to the switch you may need to enable legacy crypto algorithms if using modern Linux. The default login is admin:admin.
+```
+sudo update-crypto-policies --set LEGACY
+ssh -o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa admin@10.0.2.28
+```
+
+To get shell access you need to install a license to enable restricted commands. License install can also be done through the GUI.
 
 To install from SSH, use these commands and verify the output:
 ```
