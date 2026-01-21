@@ -1,6 +1,6 @@
 Here lies info on enabling features on your new (and very old) Mellanox SX6036 switch.
 
-## Shell Access
+# Shell Access
 To get shell access you need to install a license to enable restricted commands. License install can also be done through the GUI. To SSH to the switch you may need to enable legacy crypto algorithms if using modern Linux. The default login is admin:admin
 
 To install from SSH, use these commands and verify the output:
@@ -83,7 +83,7 @@ mellanox-sx6036 [standalone: master] (config) # exit
 mellanox-sx6036 [standalone: master] # show licenses
 ```
 
-## Noise and Power
+# Noise and Power
 My SX6036 idles at 35w with one PSU plugged in and fans spun down to roughly 4300 rpm (17% speed - any lower and they'll start to rpm cycle). By default the switch idles at 50-55w and the fans run at nearly 10000 rpm.
 
 From an elevated SSH session you can see and control the fans
@@ -117,3 +117,68 @@ PS2             FAN             F1   4320.00   OK
 ```
 
 I'll update this when I figure out how to make the fan speed persistent.
+
+# Cable Breakout info
+You can configure QSFP ports to breakout to either 2x10GbE SFP+ or 4x10GbE SFP+.
+```
+mellanox-sx6036 [standalone: master] > enable
+mellanox-sx6036 [standalone: master] # configure terminal
+mellanox-sx6036 [standalone: master] (config) # interface ethernet 1/36
+mellanox-sx6036 [standalone: master] (config interface ethernet 1/36) # shutdown
+mellanox-sx6036 [standalone: master] (config interface ethernet 1/36) # exit
+mellanox-sx6036 [standalone: master] (config) # interface ethernet 1/33
+mellanox-sx6036 [standalone: master] (config interface ethernet 1/33) # shutdown
+mellanox-SX6036 [standalone: master] (config interface ethernet 1/33) # module-type qsfp-split-4
+the following interfaces will be unmapped: 1/33 1/36 
+Type 'yes' to confirm split: yes
+mellanox-sx6036 [standalone: master] (config interface ethernet 1/33) # exit
+ellanox-SX6036 [standalone: master] (config) # exit
+Mellanox-SX6036 [standalone: master] # write memory
+```
+
+### SX6036 Port Splitting Options
+
+**Maximum 10 Gb/s Ethernet ports configurable: 64**
+
+<img width="724" height="61" alt="image" src="https://github.com/user-attachments/assets/aed88470-5cb8-4a8f-8b68-3a72e2a842e2" />
+
+#### Port Splitting Table
+
+| Port # | Can be split to 4 | Can be split to 2 |
+|--------|-------------------|-------------------|
+| 1      | No                | No                |
+| 2      | No                | No                |
+| 3      | No                | No                |
+| 4      | Yes, disables port 1 | Yes            |
+| 5      | Yes, disables port 6 | Yes            |
+| 6      | No                | No                |
+| 7      | No                | No                |
+| 8      | No                | No                |
+| 9      | Yes, disables port 12 | Yes           |
+| 10     | Yes, disables port 7 | Yes            |
+| 11     | No                | No                |
+| 12     | No                | No                |
+| 13     | No                | No                |
+| 14     | Yes, disables port 13 | —             |
+| 15     | Yes, disables port 18 | —             |
+| 16     | No                | No                |
+| 17     | No                | No                |
+| 18     | No                | No                |
+| 19     | No                | No                |
+| 20     | No                | Yes               |
+| 21     | No                | Yes               |
+| 22     | Yes, disables port 19 | Yes           |
+| 23     | Yes, disables port 24 | Yes           |
+| 24     | No                | No                |
+| 25     | No                | No                |
+| 26     | No                | No                |
+| 27     | Yes, disables port 30 | Yes           |
+| 28     | Yes, disables port 25 | Yes           |
+| 29     | No                | No                |
+| 30     | No                | No                |
+| 31     | No                | No                |
+| 32     | Yes, disables port 31 | Yes           |
+| 33     | Yes, disables port 36 | Yes           |
+| 34     | No                | Yes               |
+| 35     | No                | Yes               |
+| 36     | No                | No                |
